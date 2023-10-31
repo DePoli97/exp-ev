@@ -1,3 +1,3 @@
 # exp-ev
 
-repo for all the exp & ev assignemtns
+repo for all the exp & ev assignments
