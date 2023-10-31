@@ -1,6 +1,7 @@
 package exp01;
 
 public class Tester {
-    BubbleSortUntilNoChange<Int> bubbleSortUntilNoChange = new BubbleSortUntilNoChange<>();
+        BubbleSortUntilNoChange<Integer> bubbleSortUntilNoChange = new BubbleSortUntilNoChange<>();
+
 
 }
