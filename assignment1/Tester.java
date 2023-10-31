@@ -2,7 +2,7 @@ package exp01;
 
 import java.util.Random;
 
-public class tester {
+public class Tester {
     public static void main (String[] args) {
         Random random = new Random();
 
@@ -19,6 +19,9 @@ public class tester {
 
         BubbleSortUntilNoChange<Integer> noChangeInt = new BubbleSortUntilNoChange<>();
 
+        long start = System.currentTimeMillis();
         noChangeInt.sort(randomArray);
+        long end = System.currentTimeMillis();
+        System.out.println(end-start);
     }
 }
