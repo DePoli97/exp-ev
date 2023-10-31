@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Tester {
-    public static void main (String[] args) {
+    public void randomArrayTest() {
         Random random = new Random();
 
         // Define the size of the array
