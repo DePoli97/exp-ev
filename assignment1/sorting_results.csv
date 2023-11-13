@@ -8,3 +8,9 @@ BubbleSortWhileNeeded,Byte[],10000,ASCENDING,446589
 BubbleSortUntilNoChange,Byte[],10000,ASCENDING,702773
 BubbleSortPassPerItem,Byte[],10000,ASCENDING,179425452
 BubbleSortWhileNeeded,Byte[],10000,ASCENDING,458248
+BubbleSortUntilNoChange,Byte[],10000,RANDOM,674673982
+BubbleSortPassPerItem,Byte[],10000,RANDOM,643537835
+BubbleSortWhileNeeded,Byte[],10000,RANDOM,371629816
+BubbleSortUntilNoChange,Byte[],10000,DESCENDING,602782300
+BubbleSortPassPerItem,Byte[],10000,DESCENDING,639191097
+BubbleSortWhileNeeded,Byte[],10000,DESCENDING,413328343

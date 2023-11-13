@@ -14,8 +14,10 @@ public class Tester {
         // Define the size of the array
         int arraySize = 10000;
 
+        TestCaseGenerator.SortOrder order = TestCaseGenerator.SortOrder.DESCENDING;
+
         // Generate test case
-        Byte[] randomArray_1 = generateRandomArray(Byte.class, arraySize, TestCaseGenerator.SortOrder.ASCENDING);
+        Byte[] randomArray_1 = generateRandomArray(Byte.class, arraySize, order);
         Byte[] randomArray_2 = Arrays.copyOf(randomArray_1, arraySize);
         Byte[] randomArray_3 = Arrays.copyOf(randomArray_1, arraySize);
 
@@ -30,23 +32,23 @@ public class Tester {
             }
 
             // Perform tests and append results to the CSV file
-            testAndWriteToCSV(writer, "BubbleSortUntilNoChange", randomArray_1, noChangeInt);
-            testAndWriteToCSV(writer, "BubbleSortPassPerItem", randomArray_2, passInt);
-            testAndWriteToCSV(writer, "BubbleSortWhileNeeded", randomArray_3, whileInt);
+            testAndWriteToCSV(writer, "BubbleSortUntilNoChange", randomArray_1, noChangeInt, order);
+            testAndWriteToCSV(writer, "BubbleSortPassPerItem", randomArray_2, passInt, order);
+            testAndWriteToCSV(writer, "BubbleSortWhileNeeded", randomArray_3, whileInt, order);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static <T extends Comparable<T>> void testAndWriteToCSV(BufferedWriter writer, String algorithmName, T[] array, Sorter<T> sortingAlgorithm) throws IOException {
+    private static <T extends Comparable<T>> void testAndWriteToCSV(BufferedWriter writer, String algorithmName, T[] array, Sorter<T> sortingAlgorithm, TestCaseGenerator.SortOrder order) throws IOException {
         long startTime = System.nanoTime();
         sortingAlgorithm.sort(array);
         long endTime = System.nanoTime();
         long executionTime = endTime - startTime;
 
         // Create a CSV record
-        String record = String.format("%s,%s,%d,ASCENDING,%d%n",
-                algorithmName, array.getClass().getSimpleName(), array.length, executionTime);
+        String record = String.format("%s,%s,%d,%s,%d%n",
+                algorithmName, array.getClass().getSimpleName(), array.length, order.toString(), executionTime);
 
         // Write the record to the CSV file
         writer.write(record);
