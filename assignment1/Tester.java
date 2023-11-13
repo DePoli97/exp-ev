@@ -1,43 +1,56 @@
 package exp01;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.Random;
+
+import static exp01.TestCaseGenerator.generateRandomArray;
 
 public class Tester {
     public static void main (String[] args) {
-        Random random = new Random();
 
         // Define the size of the array
         int arraySize = 10000;
 
-        // Create an Integer array
-        Integer[] randomArray_1 = new Integer[arraySize];
+        // Generate test case
+        Byte[] randomArray_1 = generateRandomArray(Byte.class, arraySize, TestCaseGenerator.SortOrder.ASCENDING);
+        Byte[] randomArray_2 = Arrays.copyOf(randomArray_1, arraySize);
+        Byte[] randomArray_3 = Arrays.copyOf(randomArray_1, arraySize);
 
-        // Fill the array with random integers
-        for(int i = 0; i < arraySize; i++) {
-            randomArray_1[i] = random.nextInt(); // Generates a random integer
+        BubbleSortUntilNoChange<Byte> noChangeInt = new BubbleSortUntilNoChange<>();
+        BubbleSortPassPerItem<Byte> passInt = new BubbleSortPassPerItem<>();
+        BubbleSortWhileNeeded<Byte> whileInt = new BubbleSortWhileNeeded<>();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sorting_results.csv", true))) {
+            // If the file is empty, write headers
+            if (new File("sorting_results.csv").length() == 0) {
+                writer.write("Algorithm,Array Type,Array Size,Sort Order,Execution Time (ns)\n");
+            }
+
+            // Perform tests and append results to the CSV file
+            testAndWriteToCSV(writer, "BubbleSortUntilNoChange", randomArray_1, noChangeInt);
+            testAndWriteToCSV(writer, "BubbleSortPassPerItem", randomArray_2, passInt);
+            testAndWriteToCSV(writer, "BubbleSortWhileNeeded", randomArray_3, whileInt);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-        Integer[] randomArray_2 = Arrays.copyOf(randomArray_1, arraySize);
-        Integer[] randomArray_3 = Arrays.copyOf(randomArray_1, arraySize);
+    private static <T extends Comparable<T>> void testAndWriteToCSV(BufferedWriter writer, String algorithmName, T[] array, Sorter<T> sortingAlgorithm) throws IOException {
+        long startTime = System.nanoTime();
+        sortingAlgorithm.sort(array);
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
 
-        BubbleSortUntilNoChange<Integer> noChangeInt = new BubbleSortUntilNoChange<>();
-        BubbleSortPassPerItem<Integer> passInt = new BubbleSortPassPerItem<>();
-        BubbleSortWhileNeeded<Integer> whileInt = new BubbleSortWhileNeeded<>();
+        // Create a CSV record
+        String record = String.format("%s,%s,%d,ASCENDING,%d%n",
+                algorithmName, array.getClass().getSimpleName(), array.length, executionTime);
 
-        long start_1 = System.currentTimeMillis();
-        noChangeInt.sort(randomArray_1);
-        long end_1 = System.currentTimeMillis();
-        System.out.println("no change:" + (end_1-start_1));
+        // Write the record to the CSV file
+        writer.write(record);
 
-        long start_2 = System.currentTimeMillis();
-        passInt.sort(randomArray_2);
-        long end_2 = System.currentTimeMillis();
-        System.out.println("pass:" + (end_2-start_2));
-
-        long start_3 = System.currentTimeMillis();
-        whileInt.sort(randomArray_3);
-        long end_3 = System.currentTimeMillis();
-        System.out.println("while:" + (end_3-start_3));
+        System.out.println(algorithmName + " execution time: " + executionTime + " ns");
     }
 }

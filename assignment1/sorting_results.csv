@@ -1,0 +1,10 @@
+Algorithm,Array Type,Array Size,Sort Order,Execution Time (ns)
+BubbleSortUntilNoChange,Integer[],500,ASCENDING,48931
+BubbleSortPassPerItem,Integer[],500,ASCENDING,9310347
+BubbleSortWhileNeeded,Integer[],500,ASCENDING,49060
+BubbleSortUntilNoChange,Byte[],10000,ASCENDING,1408086
+BubbleSortPassPerItem,Byte[],10000,ASCENDING,142468736
+BubbleSortWhileNeeded,Byte[],10000,ASCENDING,446589
+BubbleSortUntilNoChange,Byte[],10000,ASCENDING,702773
+BubbleSortPassPerItem,Byte[],10000,ASCENDING,179425452
+BubbleSortWhileNeeded,Byte[],10000,ASCENDING,458248
