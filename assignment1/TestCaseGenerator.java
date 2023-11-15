@@ -29,8 +29,6 @@ public class TestCaseGenerator {
                 array[i] = (T) Double.valueOf(random.nextDouble() * 100);
             } else if (type.equals(Byte.class)) {
                 array[i] = (T) Byte.valueOf((byte) random.nextInt(100));
-            } else if (type.equals(Float.class)) {
-                array[i] = (T) Float.valueOf(random.nextFloat() * 100);
             }
         }
 

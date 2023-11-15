@@ -15,26 +15,26 @@ public class Tester {
 
         // Define the size of the array
         int arraySize = 10000;
-        BubbleSortUntilNoChange<Byte> noChangeInt = new BubbleSortUntilNoChange<>();
-        BubbleSortPassPerItem<Byte> passInt = new BubbleSortPassPerItem<>();
-        BubbleSortWhileNeeded<Byte> whileInt = new BubbleSortWhileNeeded<>();
+        BubbleSortUntilNoChange<Double> noChangeInt = new BubbleSortUntilNoChange<>();
+        BubbleSortPassPerItem<Double> passInt = new BubbleSortPassPerItem<>();
+        BubbleSortWhileNeeded<Double> whileInt = new BubbleSortWhileNeeded<>();
 
-        TestCaseGenerator.SortOrder order = TestCaseGenerator.SortOrder.RANDOM;
+        TestCaseGenerator.SortOrder order = TestCaseGenerator.SortOrder.ASCENDING;
 
         System.out.println("Beginning test...");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("byte_sorting_results.csv", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sorting_results.csv", true))) {
             // If the file is empty, write headers
-            if (new File("byte_sorting_results.csv").length() == 0) {
+            if (new File("sorting_results.csv").length() == 0) {
                 writer.write("Algorithm,Array Type,Array Size,Sort Order,Execution Time (ns)\n");
             }
 
-            for (int i = 0; i < 350; i++) {
+            for (int i = 0; i < 125; i++) {
 
                 // Generate test case
-                Byte[] randomArray_1 = generateRandomArray(Byte.class, arraySize, order);
-                Byte[] randomArray_2 = Arrays.copyOf(randomArray_1, arraySize);
-                Byte[] randomArray_3 = Arrays.copyOf(randomArray_1, arraySize);
+                Double[] randomArray_1 = generateRandomArray(Double.class, arraySize, order);
+                Double[] randomArray_2 = Arrays.copyOf(randomArray_1, arraySize);
+                Double[] randomArray_3 = Arrays.copyOf(randomArray_1, arraySize);
 
                 // Perform tests and append results to the CSV file
                 testAndWriteToCSV(writer, "BubbleSortUntilNoChange", randomArray_1, noChangeInt, order, i);
@@ -61,8 +61,8 @@ public class Tester {
         String record = String.format("%s,%s,%d,%s,%d%n",
                 algorithmName, array.getClass().getSimpleName(), array.length, order.toString(), executionTime);
 
-        // not saving first 100 cases
-        if (iteration >= 50) {
+        // not saving first 25 cases for warmup
+        if (iteration >= 25) {
             // Write the record to the CSV file
             writer.write(record);
 //            System.out.println(algorithmName + " execution time: " + executionTime + " ns");
