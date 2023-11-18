@@ -1,4 +1,4 @@
-package exp01;
+package exp01.src;
 
 public final class BubbleSortUntilNoChange<T extends Comparable<T>> implements Sorter<T> {
 	

@@ -1,4 +1,4 @@
-package exp01;
+package exp01.src;
 
 interface Sorter<T extends Comparable<T>> {
 	

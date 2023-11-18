@@ -1,4 +1,4 @@
-package exp01;
+package exp01.src;
 
 import java.util.Arrays;
 import java.util.Random;

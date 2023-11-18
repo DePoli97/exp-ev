@@ -1,4 +1,4 @@
-package exp01;
+package exp01.src;
 import java.io.BufferedWriter;
 
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static exp01.TestCaseGenerator.generateRandomArray;
+import static exp01.src.TestCaseGenerator.generateRandomArray;
 
 public class Tester {
     public static void main (String[] args) {
@@ -23,9 +23,9 @@ public class Tester {
 
         System.out.println("Beginning test...");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sorting_results.csv", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("results/sorting_results.csv", true))) {
             // If the file is empty, write headers
-            if (new File("sorting_results.csv").length() == 0) {
+            if (new File("results/sorting_results.csv").length() == 0) {
                 writer.write("Algorithm,Array Type,Array Size,Sort Order,Execution Time (ns)\n");
             }
 
